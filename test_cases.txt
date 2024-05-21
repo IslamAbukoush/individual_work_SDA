@@ -1,0 +1,210 @@
+Bubble Sort:
+
+#include <stdbool.h>
+#include <stdio.h>
+
+void swap(int* xp, int* yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void bubbleSort(int arr[], int n)
+{
+    int i, j;
+    bool swapped;
+    for (i = 0; i < n - 1; i++) {
+        swapped = false;
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+                swapped = true;
+            }
+        }
+
+        // If no two elements were swapped by inner loop,
+        // then break
+        if (swapped == false)
+            break;
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int size)
+{
+    int i;
+    for (i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+}
+
+// Driver program to test above functions
+int main()
+{
+    int arr[] = { 64, 34, 25, 12, 22, 11, 90 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    bubbleSort(arr, n);
+    printf("Sorted array: \n");
+    printArray(arr, n);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+Merge sort:
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+arr = [3, 1, 4, 1, 5, 9, 2, 6, 5]
+sorted_arr = merge_sort(arr)
+print(sorted_arr)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Quick Sort:
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quick_sort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quick_sort(arr, low, pi - 1);
+        quick_sort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> arr = {3, 1, 4, 1, 5, 9, 2, 6, 5};
+    int n = arr.size();
+    quick_sort(arr, 0, n - 1);
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Breadth-First Search:
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Graph {
+    private int V; 
+    private LinkedList<Integer> adj[]; 
+
+    Graph(int v) {
+        V = v;
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; ++i)
+            adj[i] = new LinkedList();
+    }
+
+    void addEdge(int v, int w) {
+        adj[v].add(w);
+    }
+
+    void BFS(int s) {
+        boolean visited[] = new boolean[V];
+        Queue<Integer> queue = new LinkedList<>();
+        visited[s] = true;
+        queue.add(s);
+
+        while (queue.size() != 0) {
+            s = queue.poll();
+            System.out.print(s + " ");
+
+            for (Integer n : adj[s]) {
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
+        }
+    }
+
+    public static void main(String args[]) {
+        Graph g = new Graph(4);
+
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+
+        System.out.println("BFS starting from vertex 2:");
+        g.BFS(2);
+    }
+}
